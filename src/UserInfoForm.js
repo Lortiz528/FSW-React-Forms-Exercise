@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const UserInfoForm = () => {
 
@@ -19,7 +19,7 @@ const UserInfoForm = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     if(allFieldsValid()) {
-      alert("Form submitted!");
+      alert(`Form submitted! \n ${notARobot} \n ${title} \n ${firstName} \n ${lastName}`);
     }
     else {
       alert("Please fill out the form completely")
@@ -45,10 +45,13 @@ const UserInfoForm = () => {
   return (
     <form onSubmit={handleFormSubmit}>
       <h2>User Information</h2>
-      <input id="not-robot" type="checkbox" checked={notARobot} onChange={handleCheckboxChange}/>
-      <label htmlFor="not-robot">I am not a robot</label>
+      
+      <div className="form-group">
+        <input id="not-robot" type="checkbox" checked={notARobot} onChange={handleCheckboxChange}/>
+        <label htmlFor="not-robot">I am not a robot</label>
+      </div>
 
-      <div>
+      <div className="form-group">
         <select value={title} onChange={handleSelectChange}>
           <option value=''></option>
           <option value='mr'>Mr.</option>
@@ -59,16 +62,20 @@ const UserInfoForm = () => {
         </select>
       </div>
 
-      <input
-        value={firstName}
-        placeholder="First Name"
-        onChange={handleFirstNameChange}
-      />
-      <input
-        value={lastName}
-        placeholder="Last Name"
-        onChange={handleLastNameChange}
-      />
+      <div className="form-group">
+        <input
+          type="text"
+          value={firstName}
+          placeholder="First Name"
+          onChange={handleFirstNameChange}
+        />
+        <input
+          type="text"
+          value={lastName}
+          placeholder="Last Name"
+          onChange={handleLastNameChange}
+        />
+      </div>
 
       <button type="submit">Submit</button>
     </form>
