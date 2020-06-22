@@ -14,8 +14,6 @@ const UserInfoForm = () => {
     return true
   };
 
-  const formTag = React.createRef()
-
   const handleFormSubmit = (event) => {
     event.preventDefault();
     let {firstname, lastname, title, notARobot} = event.target
