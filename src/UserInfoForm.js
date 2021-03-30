@@ -1,85 +1,95 @@
-import React, { useState } from "react";
+import React from "react";
+import "./UserInfoForm.css";
 
-const UserInfoForm = () => {
+class UserInfoForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      notARobot: false,
+      userTitle: "",
+      firstName: "",
+      lastName: "",
+    };
+  }
 
-  const [notARobot, setRobot] = useState(false)
-  const [title, setTitle] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  handleCheckboxChange = (e) => {
+    const { checked } = e.target;
 
-  const allFieldsValid = () => {
-    return (
-      notARobot &&
-      title &&
-      firstName &&
-      lastName
-    );
+    this.setState({
+      notARobot: checked,
+    });
   };
 
-  const handleFormSubmit = (event) => {
+  handleSelectChange = (e) => {
+    const { value } = e.target;
+    this.setState({
+      userTitle: value,
+    });
+  };
+
+  handleTextChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  allFieldsValid = () => {
+    const { notARobot, userTitle, firstName, lastName } = this.state;
+    return notARobot && userTitle && firstName && lastName;
+  };
+
+  handleFormSubmit = (event) => {
     event.preventDefault();
-    if(allFieldsValid()) {
-      alert(`Form submitted! \n ${notARobot} \n ${title} \n ${firstName} \n ${lastName}`);
+    const { notARobot, userTitle, firstName, lastName } = this.state;
+
+    if (this.allFieldsValid()) {
+      alert(
+        `Form submitted! \n ${notARobot} \n ${userTitle} \n ${firstName} ${lastName}`
+      );
+    } else {
+      alert("Please fill out the form completely");
     }
-    else {
-      alert("Please fill out the form completely")
-    }
-  }
+  };
 
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value)
-  }
+  render() {
+    const { notARobot, userTitle, firstName, lastName } = this.state;
 
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value)
-  }
-  
-  const handleCheckboxChange = (e) => {
-    setRobot(e.target.checked)
-  }
-
-  const handleSelectChange = (e) => {
-    setTitle(e.target.value)
-  }
-
-  return (
-    <form onSubmit={handleFormSubmit}>
-      <h2>User Information</h2>
-      
-      <div className="form-group">
-        <input id="not-robot" type="checkbox" checked={notARobot} onChange={handleCheckboxChange}/>
-        <label htmlFor="not-robot">I am not a robot</label>
-      </div>
-
-      <div className="form-group">
-        <select value={title} onChange={handleSelectChange}>
-          <option value=''></option>
-          <option value='mr'>Mr.</option>
-          <option value='ms'>Ms.</option>
-          <option value='mrs'>Mrs.</option>
-          <option value='mx'>Mx.</option>
-          <option value='dr'>Dr.</option>
+    return (
+      <form onSubmit={this.handleFormSubmit} className="form-container">
+        <h2>User Information</h2>
+        <input
+          id="not-robot"
+          type="checkbox"
+          checked={notARobot}
+          onChange={this.handleCheckboxChange}
+        />
+        <select value={userTitle} onChange={this.handleSelectChange}>
+          <option value=""></option>
+          <option value="mr">Mr.</option>
+          <option value="ms">Ms.</option>
+          <option value="mrs">Mrs.</option>
+          <option value="mx">Mx.</option>
+          <option value="dr">Dr.</option>
         </select>
-      </div>
-
-      <div className="form-group">
         <input
           type="text"
+          name="firstName"
           value={firstName}
           placeholder="First Name"
-          onChange={handleFirstNameChange}
+          onChange={this.handleTextChange}
         />
         <input
           type="text"
+          name="lastName"
           value={lastName}
           placeholder="Last Name"
-          onChange={handleLastNameChange}
+          onChange={this.handleTextChange}
         />
-      </div>
-
-      <button type="submit">Submit</button>
-    </form>
-  )
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
 }
 
-export default UserInfoForm
+export default UserInfoForm;
