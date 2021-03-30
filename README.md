@@ -12,4 +12,3 @@
 
 * `master` is the default branch, showing the starting point
 * `solution` shows the final state using **controlled** components
-* `solution-uncontrolled` shows the final state using **uncontrolled** components
