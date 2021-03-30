@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import "./UserInfoForm.css";
 
-const UserInfoForm = () => {
-
-  const handleFormSubmit = (event) => {
+class UserInfoForm extends React.Component {
+  handleFormSubmit = (event) => {
     event.preventDefault();
-    alert(`Form submitted!`)
-  }
+    alert(`Form submitted!`);
+  };
 
-  return (
-    <form onSubmit={handleFormSubmit}>
-      <h2>User Information</h2>
-      
-      <button type="submit">Submit</button>
-    </form>
-  )
+  render() {
+    return (
+      <form onSubmit={this.handleFormSubmit} className="form-container">
+        <h2>User Information</h2>
+
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
 }
 
-export default UserInfoForm
+export default UserInfoForm;
